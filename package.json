@@ -6,7 +6,7 @@
   "author": "Jerry",
   "license": "MIT",
   "devDependencies": {
+    "webpack": "^2.6.1"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
