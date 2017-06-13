@@ -1,2 +1,2 @@
-import aa from './config.js';
-console.log(aa);
+let aa = "111";
+export default aa;
