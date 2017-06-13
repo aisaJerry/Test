@@ -1,0 +1,110 @@
+<html>
+<head></head>
+<body>
+<script type="text/javascript">
+  /*
+  * 实现数据监听的大致简单demo
+  * Observer: 观察者，Observer(obj),观察obj, 代码实现是通过递归，给obj里的每个属性以及obj里的对象的属性添加get和set 
+                     这样就实现了对象的属性设置和获取的时候能够实时监听, 知识点：es5的特性get,set
+  * Watcher:  监听者, Watcher(obj,key,update) 只有被Watcher的对象才会在set后 做后续操作
+                     在观察者的基础上，每次对象属性改变获取执行get,set时做一层过滤，告诉观察者，只有符合条件的(Watch调用)，才会执行update
+                     代码实现：设置全局变量 target,默认是null, Watcher时，将target设成当前对象，并调用Observer的get,把target放到一个
+                             数组中，在set时候循环dep,执行dep里的所有target的update  
+                             也就实现，只有被Watcher的对象才能在设置的时候执行update
+                             update是Watcher的第三个参数，用来设置新的值后所执行的回调，比如去渲染视图              
+  */
+
+  function Watcher(data, exp, cb) {
+    this.data = data;
+    this.exp = exp;
+    this.cb = cb;
+    this.value = this.get();
+  }
+  Watcher.prototype.get = function() {
+    // 给 dep.target 置值，告诉 Observer 这是 Watcher 调用的 getter
+    dep.target = this;
+    // 调用 getter，触发相应响应
+    var value = this.data[this.exp];
+    // dep.target 还原
+    dep.target = null;
+    return value;
+  };
+  Watcher.prototype.update = function() {
+    this.cb();
+  };
+  function Observer(value) {
+    this.value = value;
+    this.walk(value);
+  }
+  Observer.prototype.walk = function(obj) {
+    var keys = Object.keys(obj);
+    for(var i = 0; i < keys.length; i++) {
+      // 给所有属性添加 getter、setter
+      defineReactive(obj, keys[i], obj[keys[i]]);
+    }
+  };
+
+  var dep = [];
+  dep.target = null;
+
+  function defineReactive(obj, key, val) {
+    // 有自定义的 property，则用自定义的 property
+    var property = Object.getOwnPropertyDescriptor(obj, key);
+    if(property && property.configurable === false) {
+      return;
+    }
+
+    var getter = property && property.get;
+    var setter = property && property.set;
+
+    // 递归的方式实现给属性的属性添加 getter、setter
+    var childOb = observe(val);
+    Object.defineProperty(obj, key, {
+      enumerable: true,
+      configurable: true,
+      get: function() {
+        var value = getter ? getter.call(obj) : val;
+        // 如果是 Watcher 监听的，就把 Watcher 对象压入 dep
+        if(dep.target) {
+          dep.push(dep.target);
+        }
+        return value;
+      },
+      set: function(newVal) {
+        var value = getter ? getter.call(obj) : val;
+        // set 值与原值相同，则不更新
+        if(newVal === value) {
+          return;
+        }
+        if(setter) {
+          setter.call(obj, newVal);
+        } else {
+          val = newVal;
+        }
+        // 给新赋值的属性值的属性添加 getter、setter
+        childOb = observe(newVal);
+        // 按序执行 dep 中元素的 update 方法
+        for(var i = 0; i < dep.length; i++) {
+          dep[i].update(); 
+        }
+      }
+    });
+  }
+
+  function observe(value) {
+    if(!value || typeof value !== 'object') {
+      return;
+    }
+    return new Observer(value);
+  }
+
+
+  var data = {a: 1};
+  new Observer(data);
+  new Watcher(data, 'a', function(){console.log('it works')});
+  data.a =12;
+  data.a =14;
+
+</script>
+</body>
+</html>
