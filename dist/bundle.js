@@ -68,30 +68,31 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_js__ = __webpack_require__(2);
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var aa = "111";
-alert(111);
-exports.default = aa;
+alert(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */]);
+/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* default */]);
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webviews_import_index_js__ = __webpack_require__(0);
 
 
-var _index = __webpack_require__(0);
 
-var _index2 = _interopRequireDefault(_index);
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+"use strict";
+let aa = "111";
+/* harmony default export */ __webpack_exports__["a"] = (aa);
 
 /***/ })
 /******/ ]);

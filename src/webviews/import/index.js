@@ -1,2 +1,2 @@
-let aa = "111";
+import aa from './config.js';
 export default aa;
