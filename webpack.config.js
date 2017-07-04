@@ -23,7 +23,7 @@ module.exports = {
   ],
   resolve: {
     alias: {
-        'Vue': 'vue/dist/vue.js'
+        'vue$': 'vue/dist/vue.min.js'
       }
     }
 };

@@ -1,16 +1,11 @@
 <template src="./index.html"></template>
 <script>
 	export default {
-	  name: 'home',
+	  name: 'foo',
 	  data () {
 	    return {
-	      msg: 'home'
+	      msg: 'foo'
 	    }
-	  },
-	  methods: {
-	  	goFoo() {
-	  		this.$router.push('/foo');
-	  	}
 	  }
 	}
 </script>

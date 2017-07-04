@@ -1,10 +1,10 @@
-import Vue from 'Vue';
-import VueRouter from 'vue-router';
-import routes from './router.js'
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import routes from './routerMap.js'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 new Vue({
-  router:new VueRouter({routes}),
-  el:'#app'
+  el: '#app',
+  router: new VueRouter({routes,})
 })
