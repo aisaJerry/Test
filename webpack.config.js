@@ -4,9 +4,12 @@ var HtmlWebpackPlugin = require('html-webpack-plugin'); // html inject
 var node_modules = path.resolve(__dirname, '../node_modules');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    vendors:['vue','vue-router'], //抽离公用文件 step1
+    app:'./src/index.js'
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js', // 多个入口文件时，需要用变量
     path: path.resolve(__dirname, 'dist')
   },
   module: {
@@ -19,7 +22,10 @@ module.exports = {
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, 'src/index.html'),
         filename: 'index.html'
-      })
+      }),
+      new webpack.optimize.CommonsChunkPlugin({ //抽离公用文件 step2 需和step1配合
+          names: [ "vendors"]
+      }),
   ],
   resolve: {
     alias: {
