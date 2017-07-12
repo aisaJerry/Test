@@ -11,7 +11,7 @@ module.exports = {
   output: {
     filename: '[name].[hash:10].js', // 多个入口文件时，需要用变量
     path: path.resolve(__dirname, 'dist'),
-    chunkFilename: '[id].[chunkhash:5].js'
+    chunkFilename: '[name].[chunkhash:5].js'
   },
   module: {
     loaders: [ // loader默认不会把node_modules包含进来, 写了include,就需要包含本项目的src
