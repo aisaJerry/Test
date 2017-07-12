@@ -4,12 +4,15 @@
 	  name: 'home',
 	  data () {
 	    return {
-	      msg: 'home'
+	      msg: 'home page'
 	    }
 	  },
 	  methods: {
 	  	goFoo() {
 	  		this.$router.push('/foo');
+	  	},
+	  	goEver() {
+	  		this.$router.push('/ever');
 	  	}
 	  }
 	}

@@ -9,12 +9,13 @@ module.exports = {
     app:'./src/index.js'
   },
   output: {
-    filename: '[name].js', // 多个入口文件时，需要用变量
-    path: path.resolve(__dirname, 'dist')
+    filename: '[name].[hash:10].js', // 多个入口文件时，需要用变量
+    path: path.resolve(__dirname, 'dist'),
+    chunkFilename: '[id].[chunkhash:5].js'
   },
   module: {
-    loaders: [ // loader默认不会把node_modules包含进来
-        { test: /\.js|jsx$/, include: node_modules, loader: "babel-loader" },
+    loaders: [ // loader默认不会把node_modules包含进来, 写了include,就需要包含本项目的src
+        { test: /\.js$/, include: [ node_modules, path.resolve(__dirname, './src') ], loader: "babel-loader" },
         { test: /\.vue$/, loader: "vue-loader" } // 如果要包含外部包， 需要写include:spec_moudle,  spec_moudle从node_moudle中过滤出来
     ]
   },
