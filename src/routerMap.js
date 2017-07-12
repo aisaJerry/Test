@@ -1,9 +1,13 @@
 import Home from './webviews/home/index.vue'
 
+//const Foo = resolve => require(['./webviews/foo/index.vue'],resolve)
+//const Ever = resolve => require(['./webviews/ever/index.vue'],resolve)
+//const getView = name => resolve => require([`./webviews/${name}/index.vue`],resolve) 不凑效
 
-//const getAsycCom = name => resolve => require.ensure([],resolve(require(`./webviews/${name}/index.vue`)));
-const Foo = resolve => require(['./webviews/foo/index.vue'],resolve)
-const Ever = resolve => require(['./webviews/ever/index.vue'],resolve)
+//const Foo = import('./webviews/foo/index.vue').then(webview);
+//const Ever = import('./webviews/ever/index.vue').then(webview);
+
+const getView = name => import(`./webviews/${name}/index.vue`)
 
 
 const routes = [
@@ -15,12 +19,12 @@ const routes = [
 	{ 
 		path: '/foo', 
 		name: 'foo',
-		component: Foo
+		component: getView('foo')
 	},
 	{ 
 		path: '/ever', 
 		name: 'ever',
-		component: Ever
+		component: getView('ever')
 	},
 ]
 
