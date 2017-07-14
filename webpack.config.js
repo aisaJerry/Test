@@ -2,6 +2,8 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin'); // html inject
 var node_modules = path.resolve(__dirname, '../node_modules');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: {
@@ -14,9 +16,47 @@ module.exports = {
     chunkFilename: '[name].[chunkhash:5].js'
   },
   module: {
-    loaders: [ // loader默认不会把node_modules包含进来, 写了include,就需要包含本项目的src
-        { test: /\.js$/, include: [ node_modules, path.resolve(__dirname, './src') ], loader: "babel-loader" },
-        { test: /\.vue$/, loader: "vue-loader" } // 如果要包含外部包， 需要写include:spec_moudle,  spec_moudle从node_moudle中过滤出来
+    rules: [ // loader默认不会把node_modules包含进来, 写了include,就需要包含本项目的src
+        { 
+          test: /\.js$/, 
+          loader: "babel-loader",
+          include: [ node_modules, path.resolve(__dirname, './src') ],
+        },
+        {
+          test: /\.css$/,
+          loader: ExtractTextPlugin.extract({
+              fallback: 'style-loader', 
+              use: ['css-loader']
+          })
+        },
+        {
+          test: /\.scss$/,
+          loader: ExtractTextPlugin.extract({
+              fallback: 'style-loader', 
+              use: ['css-loader', 'postcss-loader', 'sass-loader']
+          })
+        },
+        { // 如果要包含外部包， 需要写include:spec_moudle,  spec_moudle从node_moudle中过滤出来
+          test: /\.vue$/, 
+          loader: "vue-loader",
+          options: {
+            loaders: {
+              css: ExtractTextPlugin.extract({
+                  fallback: 'style-loader',
+                  use: 'css-loader'
+              }),
+              sass: ExtractTextPlugin.extract({
+                  fallback: 'style-loader',
+                  use: ['css-loader', 'postcss-loader', 'sass-loader']
+              }),
+              scss: ExtractTextPlugin.extract({
+                  fallback: 'style-loader',
+                  use: ['css-loader', 'postcss-loader', 'sass-loader']
+              })
+
+            }
+          } 
+        }
     ]
   },
   plugins: [
@@ -24,9 +64,15 @@ module.exports = {
         template: path.resolve(__dirname, 'src/index.html'),
         filename: 'index.html'
       }),
-      new webpack.optimize.CommonsChunkPlugin({ //抽离公用文件 step2 需和step1配合
+      new webpack.optimize.CommonsChunkPlugin({ //抽离公用JS文件 step2 需和step1配合
           names: [ "vendors"]
       }),
+      new ExtractTextPlugin('[name].[contenthash:10].css'),
+      new webpack.LoaderOptionsPlugin({
+        options:{
+          postcss: [autoprefixer]
+        }
+      })
   ],
   resolve: {
     alias: {

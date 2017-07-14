@@ -8,11 +8,6 @@
 	    return {
 	      msg: 'foo'
 	    }
-	  },
-	  methods: {
-	  	test() {
-			testArrow("124");
-	  	}
 	  }
 	}
 </script>
