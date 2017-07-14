@@ -11,11 +11,11 @@ var chunkSorts = ["manifest", "vendor", "app"];
 module.exports = {
   entry: {
     vendors:['vue','vue-router'], //抽离公用文件 step1
-    app:'./src/index.js'
+    app: path.resolve(__dirname, '../src/index.js')
   },
   output: {
     filename: '[name].[hash:10].js', // 多个入口文件时，需要用变量
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist'),
     chunkFilename: '[name].[chunkhash:5].js'
   },
   module: {
@@ -23,7 +23,7 @@ module.exports = {
         { 
           test: /\.js$/, 
           loader: "babel-loader",
-          include: [ node_modules, path.resolve(__dirname, './src') ],
+          exclude: /node_modules/
         },
         {
           test: /\.css$/,
@@ -64,8 +64,8 @@ module.exports = {
   },
   plugins: [
       new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, './src/index.html'),
-        filename: 'index.html',
+        template: path.resolve(__dirname, '../src/index.html'),
+        filename: './index.html',
         excludeChunks: ['manifest']
       }),
       new webpack.optimize.CommonsChunkPlugin({ //抽离公用JS文件 step2 需和step1配合
@@ -95,7 +95,8 @@ module.exports = {
   ],
   resolve: {
     alias: {
-        'vue$': 'vue/dist/vue.min.js'
+        'vue$': 'vue/dist/vue.min.js',
+        'src': path.resolve(__dirname, '../src')
       }
     }
 };
