@@ -1,9 +1,19 @@
 import Home from './webviews/home/index.vue'
+import Vue from 'vue'
+import VueSocketio from 'vue-socket.io';
 
 const routes = [
 	{
 	 path: '/', 
-	 component: Home
+	 component: Home,
+	 beforeEnter: (to, from, next) => {
+		 if (!Vue.prototype.$scoket){
+			Vue.use(new VueSocketio({
+				connection: 'http://localhost:8688',
+			}));
+			next();
+		 }
+	 }
 	}
 ];
 

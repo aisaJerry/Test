@@ -72,7 +72,7 @@ module.exports = {
           /*
           * manifest是一个js-moudle和js-moudle-id的对应关系
           * 如果不抽离出来，webpack会默认打在vendors.123.js或者app.123.js中
-          * 这样的话，0.js一改，就会导致vendors.123.js或者app.123.js的md5值也会变化，会重新加载
+          * 这样的话，0.js一改，manifest.js也会变，就会导致vendors.123.js或者app.123.js的md5值也会变化，会重新加载
           * 抽离出来，vendors.123.js或者app.123.js不改动不会变化，只会变化0.js和mainfest.js的md5值
           * mainfest.js较于vendor小多了
           */

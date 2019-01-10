@@ -6,6 +6,7 @@
 	  name: 'foo',
 	  data () {
 	    return {
+				a: 'test',
 	      msg: 'foo'
 	    }
 	  }
