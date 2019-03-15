@@ -4,7 +4,7 @@
 	  name: 'home',
 	  data () {
 	    return {
-	      msg: 'home page'
+	      msg: 'Welcome to Greenroot H5 application'
 	    }
 	  },
 	  methods: {

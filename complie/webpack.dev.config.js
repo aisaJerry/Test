@@ -15,7 +15,7 @@ module.exports = {
   },
   output: {
     filename: '[name].[hash:10].js', // 多个入口文件时，需要用变量
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist'),
     chunkFilename: '[name].[chunkhash:5].js'
   },
   module: {
@@ -54,7 +54,14 @@ module.exports = {
               }),
               scss: ExtractTextPlugin.extract({
                   fallback: 'style-loader',
-                  use: ['css-loader', 'postcss-loader', 'sass-loader']
+                  use: ['css-loader', 'postcss-loader', {
+                    loader: 'px2rem-loader',
+                    // options here
+                    options: {
+                      remUni: 75,
+                      remPrecision: 8
+                    }
+                  }, 'sass-loader']
               })
 
             }
@@ -65,10 +72,25 @@ module.exports = {
   plugins: [
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, '../src/index.html'),
-        filename: 'index.html',
+        filename: './index.html',
+        excludeChunks: ['manifest']
       }),
       new webpack.optimize.CommonsChunkPlugin({ //抽离公用JS文件 step2 需和step1配合
-          names: [ "vendors"]
+          /*
+          * manifest是一个js-moudle和js-moudle-id的对应关系
+          * 如果不抽离出来，webpack会默认打在vendors.123.js或者app.123.js中
+          * 这样的话，0.js一改，就会导致vendors.123.js或者app.123.js的md5值也会变化，会重新加载
+          * 抽离出来，vendors.123.js或者app.123.js不改动不会变化，只会变化0.js和mainfest.js的md5值
+          * mainfest.js较于vendor小多了
+          */
+          names: [ "vendors", "manifest"]
+      }),
+      /*
+       * 将manifest打包成inline脚本，放到html里面，少了mainfest.js的请求
+      * */
+      new InlineManifestWebpackPlugin({
+          name: 'webpackManifest',
+          deleteFile: true
       }),
       // 抽离css
       new ExtractTextPlugin('[name].[contenthash:10].css'),
@@ -78,13 +100,10 @@ module.exports = {
         }
       })
   ],
-  devServer: {
-      contentBase: "./src",
-      disableHostCheck: true
-  },
   resolve: {
     alias: {
-        'vue$': 'vue/dist/vue.min.js'
+        'vue$': 'vue/dist/vue.min.js',
+        'src': path.resolve(__dirname, '../src')
       }
     }
 };

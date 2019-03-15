@@ -6,8 +6,9 @@
 	  name: 'foo',
 	  data () {
 	    return {
-	      msg: 'foo'
+	      
 	    }
 	  }
 	}
 </script>
+<style src="./index.scss" lang="scss"></style>

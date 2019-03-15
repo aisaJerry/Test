@@ -42,6 +42,7 @@
     "webpack": "^3.0.0"
   },
   "dependencies": {
+    "px2rem-loader": "^0.1.9",
     "rimraf": "^2.5.4",
     "vue": "^2.3.3",
     "vue-hot-reload-api": "^2.1.0",

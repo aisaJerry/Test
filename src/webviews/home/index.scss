@@ -1,6 +1,16 @@
 @import '../../common/app.scss';
 .homePage{
-	h1{
-		color: green;
-	}	
+	height: 100%;
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	font-size: 36px;
+	.navs {
+		width: 100%;
+		p {
+			color: blue;
+			margin-top: 20px;
+		}
+	}
 }
