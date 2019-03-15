@@ -6,7 +6,7 @@
   "author": "Jerry",
   "license": "MIT",
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server --config complie/webpack.dev.config.js --port 8686 --colors --hot --inline",
+    "dev": "node_modules/.bin/webpack-dev-server --config complie/webpack.dev.config.js --port 8686 --colors --hot --inline",
     "build": "rimraf ./dist/ && webpack --config complie/webpack.pro.config.js -p"
   },
   "devDependencies": {
