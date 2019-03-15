@@ -5,12 +5,13 @@
 	display: flex;
 	justify-content: center;
 	text-align: center;
-	font-size: 36px;
+	font-size: 18px;
 	.navs {
 		width: 100%;
 		p {
 			color: blue;
-			margin-top: 20px;
+			margin-top: 10px;
+			font-size: 12px;
 		}
 	}
 }

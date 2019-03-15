@@ -5,6 +5,7 @@ var node_modules = path.resolve(__dirname, '../node_modules');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var autoprefixer = require('autoprefixer');
 var InlineManifestWebpackPlugin = require('inline-manifest2-webpack-plugin');
+var remUnit = 37.5;
 
 var chunkSorts = ["manifest", "vendor", "app"];
 
@@ -36,7 +37,12 @@ module.exports = {
           test: /\.scss$/,
           loader: ExtractTextPlugin.extract({
               fallback: 'style-loader', 
-              use: ['css-loader', 'postcss-loader', 'sass-loader']
+              use: ['css-loader', 'postcss-loader', {
+                loader: 'px2rem-loader',
+                options: {
+                  remUnit: remUnit,
+                }
+              }, 'sass-loader']
           })
         },
         { // 如果要包含外部包， 需要写include:spec_moudle,  spec_moudle从node_moudle中过滤出来
@@ -56,10 +62,8 @@ module.exports = {
                   fallback: 'style-loader',
                   use: ['css-loader', 'postcss-loader', {
                     loader: 'px2rem-loader',
-                    // options here
                     options: {
-                      remUni: 75,
-                      remPrecision: 8
+                      remUnit: remUnit,
                     }
                   }, 'sass-loader']
               })
