@@ -1,11 +1,15 @@
 @import '../../common/app.scss';
 .fooPage{
 	height: 100%;
+	text-align: center;
 	.content {
-		flex-direction: column;
 		display: flex;
 		justify-content: center;
 		text-align: center;
+		span {
+			font-size: 18px;
+			margin: 20px;
+		}
 	}
 	h1 {
 		font-size: 14px;

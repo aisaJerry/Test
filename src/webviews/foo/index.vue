@@ -1,8 +1,10 @@
 <template src="./index.html"></template>
 <script>
-	/*CREATE BY JERRY*/
-	const testArrow = param => {console.log(param)}
+	import IconSvg from 'src/components/icon/index.vue';
 	export default {
+		components: {
+			'icon-svg': IconSvg
+		},
 	  name: 'foo',
 	  data () {
 	    return {

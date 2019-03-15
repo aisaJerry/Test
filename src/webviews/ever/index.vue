@@ -5,7 +5,7 @@
 	  name: 'ever',
 	  data () {
 	    return {
-	      msg: 'ever'
+	     
 	    }
 	  }
 	}
