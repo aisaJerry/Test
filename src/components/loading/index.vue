@@ -1,5 +1,5 @@
 <template>
-    <div class="loading">123123<div>
+    <div class="loading"><div>
 </template>
 <script>
 export default {
