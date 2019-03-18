@@ -1,7 +1,11 @@
 import axios from "axios";
+import loading from 'src/components/loading/load.js'
+
+let loadingInstance = {};
 
 axios.interceptors.request.use(config => {
   // loading
+  loadingInstance = loading();
   return config;
 }, err => {
   return Promise.reject(err);
@@ -9,8 +13,10 @@ axios.interceptors.request.use(config => {
 
 axios.interceptors.response.use(res => {
   // close loading
+  loadingInstance.close();
   return res;
 }, error => {
+  loadingInstance.close();
   return Promise.resolve(error.response);
 });
 
