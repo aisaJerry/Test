@@ -1,17 +1,19 @@
 @import '../../common/app.scss';
 .homePage{
-	height: 100%;
-	flex-direction: column;
-	display: flex;
-	justify-content: center;
-	text-align: center;
-	font-size: 18px;
-	.navs {
-		width: 100%;
-		p {
-			color: blue;
-			margin-top: 10px;
-			font-size: 12px;
+	.body {
+		flex-direction: column;
+		display: flex;
+		justify-content: center;
+		text-align: center;
+		font-size: 18px;
+		.navs {
+			width: 100%;
+			p {
+				color: blue;
+				margin-top: 10px;
+				font-size: 12px;
+			}
 		}
 	}
+	
 }

@@ -6,7 +6,14 @@ import store from './store/store.js'
 
 Vue.use(VueRouter, Vuex);
 
+const router = new VueRouter({routes,});
+
+router.beforeEach((to, from, next) => {
+  store.commit('addHistory', to.path)
+  next();
+})
+
 new Vue({
   el: '#app',
-  router: new VueRouter({routes,})
+  router,
 })
