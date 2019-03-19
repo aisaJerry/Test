@@ -1,8 +1,12 @@
 <div class="everPage">
-    <h1>接口调用</h1>
+    <navigator title='接口调用'></navigator>
     <div class="content">
         <p @click='testAPI'>Loading</p>
         <p @click='testToast'>Toast</p>
+        <p @click='testModel'>model</p>
         <router-link to="/">Go Home</router-link>
     </div>
+    <model modelType='confirm'>
+        <textarea placeholder="驳回原因"></textarea>
+    </model>
 </div>
